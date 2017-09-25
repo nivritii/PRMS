@@ -5,6 +5,8 @@
  */
 package sg.edu.nus.iss.phoenix.schedule.restful;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -32,6 +34,10 @@ public class ScheduleRESTService {
     
     private ScheduleService scheduleService;
     
+    public ScheduleRESTService() {
+        scheduleService = new ScheduleService();
+    }
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public ProgramSlot getProgramSlot() {
@@ -40,7 +46,7 @@ public class ScheduleRESTService {
     }
     
     @GET
-    @Path("/psall")
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public ProgramSlots getAllProgramSlots() {
         ArrayList<ProgramSlot> pslist = scheduleService.findAllPS();
@@ -54,14 +60,14 @@ public class ScheduleRESTService {
     }
 
     @PUT
-    @Path("/createps")
+    @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     public void createProgramSlot(ProgramSlot ps) {
         scheduleService.processCreate(ps);
     }
     
     @POST
-    @Path("/updateps")
+    @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     public void updateProgramSlot(ProgramSlot ps) {
         scheduleService.processModify(ps);
