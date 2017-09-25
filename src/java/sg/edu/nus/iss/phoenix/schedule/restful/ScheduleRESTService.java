@@ -10,10 +10,12 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -71,5 +73,22 @@ public class ScheduleRESTService {
     @Consumes(MediaType.APPLICATION_JSON)
     public void updateProgramSlot(ProgramSlot ps) {
         scheduleService.processModify(ps);
+    }
+    
+    @DELETE
+    @Path("/delete/{duration}/{dateOfProgram}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void deleteProgramSlot(@PathParam("duration") String duration, @PathParam("dateOfProgram") String dateOfProgram) {
+        String duration2;
+        String dateOfProgram2;
+        try { 
+            duration2 = URLDecoder.decode(duration, "UTF-8");
+            dateOfProgram2 = URLDecoder.decode(dateOfProgram, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace(); 
+            return;
+        }
+
+        scheduleService.processDelete(duration2,dateOfProgram2);
     }
 }

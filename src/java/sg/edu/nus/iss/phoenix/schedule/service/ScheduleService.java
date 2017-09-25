@@ -212,4 +212,18 @@ public class ScheduleService {
 		}
 	}
 
+    public void processDelete(String duration, String dateOfProgram) {
+            
+        try {
+                ProgramSlot ps = new ProgramSlot(duration, dateOfProgram);
+                scheduledao.delete(ps);
+            } catch (NotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+    }
+
 }

@@ -120,6 +120,23 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		}
     }
     
+    @Override
+    public void delete(ProgramSlot valueObject) throws NotFoundException, SQLException {
+            
+        PreparedStatement stmt = null;
+        String duration = valueObject.getDuration();
+        String dateofProgram = valueObject.getDateOfProgram();
+        String query = "DELETE FROM `program-slot` WHERE (`dateOfProgram` = ? and `duration` =?);";
+
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, dateofProgram);
+            stmt.setString(2, duration);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
 
  /*   @Override
@@ -516,6 +533,8 @@ public class ScheduleDaoImpl implements ScheduleDao {
             e.printStackTrace();
         }
     }*/
+
+
 
    
 }

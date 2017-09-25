@@ -17,6 +17,8 @@ public interface ScheduleDao {
     public abstract void save(ProgramSlot valueObject) throws NotFoundException, SQLException;
 
     public abstract void create(ProgramSlot valueObject) throws SQLException;
+
+    public abstract void delete(ProgramSlot valueObject) throws NotFoundException, SQLException;
    // public abstract List<ProgramSlot> listQuery(PreparedStatement stmt) throws SQLException;
     /**
      * createAnnualObject-method. This method is used when the Dao class needs
